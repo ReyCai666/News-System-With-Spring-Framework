@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <title>All News</title>
+  <style>
+    .dashboard-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .post-button {
+      position: absolute;
+      top: 50px;
+      right: 10px;
+    }
+
+    .advertisement-button {
+      position: absolute;
+      top: 90px;
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>Ebay News System</h1>
+
+<a href="/dashboard" class="dashboard-button">
+  <button>Dashboard</button>
+</a>
+
+<a href="/news/createNews" class="post-button">
+  <button sec:authorize="hasRole('ADMIN')">Post News</button>
+</a>
+
+<a href="/news/createAdvertisement" class="advertisement-button">
+  <button sec:authorize="hasRole('ADMIN')">Post Advertisement</button>
+</a>
+
+
+<div class="news-type-buttons">
+  <button onclick="window.location.href='/news'">All</button>
+  <button onclick="window.location.href='/news/type/BREAKING'">Breaking News</button>
+  <button onclick="window.location.href='/news/type/FEATURE_NEWS'">Feature News</button>
+  <button onclick="window.location.href='/news/type/SPORTS'">Sports News</button>
+  <button onclick="window.location.href='/news/type/BUSINESS'">Business News</button>
+  <button onclick="window.location.href='/news/type/ENTERTAINMENT'">Entertainment News</button>
+</div>
+
+<ul>
+  <li th:each="news : ${newsList}">
+    <a th:href="@{/news/{id}(id=${news.newsID})}" th:text="${news.title}"></a>
+    <p th:text="${news.content}"></p>
+  </li>
+</ul>
+</body>
+</html>

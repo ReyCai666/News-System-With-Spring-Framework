@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<h1>Welcome, <span th:text="${user.username}">User</span>!</h1>
+<p>User ID: <span th:text="${user.uid}"></span></p>
+<p>Profile Picture: <span th:text="${user.profilePicture}"></span></p>
+<p>Email: <span th:text="${user.email}"></span></p>
+<p>Phone Number: <span th:text="${user.phoneNumber}"></span></p>
+
+<h2>Saved News</h2>
+<div th:each="newsCollection : ${user.newsCollections}">
+    <div>
+        <h4 th:text="${newsCollection.news.title}">News Title</h4>
+        <p th:text="${newsCollection.news.content}">News Description</p>
+        <a th:href="@{'/news/' + ${newsCollection.news.newsID}}" target="_blank">Read More</a>
+    </div>
+</div>
+
+<h2>Edit Username</h2>
+<form action="/dashboard/update-username" th:object="${user}" method="post">
+    <input type="hidden" name="_method" value="put" />
+    <label for="username">Username:</label>
+    <input type="text" name= "username" id="username" required />
+    <button type="submit">Update Username</button>
+</form>
+
+<div th:if="${message}">
+    <div th:class="${'alert ' + alertClass}" role="alert">
+        <p th:text="${message}">Message</p>
+    </div>
+</div>
+
+</body>
+</html>
