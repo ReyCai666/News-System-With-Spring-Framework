@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create News</title>
+</head>
+<body>
+<h1>Create News</h1>
+  <form action="/news/createNews" method="post">
+    <label for="newsId">News ID:</label>
+    <input type="number" id="newsId" name="newsId" required><br><br>
+
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author" maxlength="255" required><br><br>
+
+    <label for="content">Content:</label>
+    <textarea id="content" name="content" maxlength="255" required></textarea><br><br>
+
+    <label for="cover_image">Cover Image URL:</label>
+    <input type="text" id="cover_image" name="cover_image" maxlength="255"><br><br>
+
+    <label for="is_promoted">Is Promoted:</label>
+    <input type="checkbox" id="is_promoted" name="is_promoted" value="1"><br><br>
+
+    <label for="release_date">Release Date:</label>
+    <input type="text" id="release_date" name="release_date" maxlength="255"><br><br>
+
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" maxlength="255" required><br><br>
+
+    <label for="type">Type:</label>
+    <select id="type" name="type" required>
+      <option value="BREAKING">Breaking</option>
+      <option value="FEATURE_NEWS">Feature News</option>
+      <option value="SPORTS">Sports</option>
+      <option value="BUSINESS">Business</option>
+      <option value="ENTERTAINMENT">Entertainment</option>
+    </select><br><br>
+
+    <input type="submit" value="Create News">
+  </form>
+</body>
+</html>

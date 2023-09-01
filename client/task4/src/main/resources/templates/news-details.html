@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Details</title>
+</head>
+<body>
+<h1>News Details</h1>
+
+<div>
+  <h2 th:text="${news.title}"></h2>
+  <p th:text="${news.content}"></p>
+  <p>Author: <span th:text="${news.author}"></span></p>
+  <p>Release Date: <span th:text="${news.releaseDate}"></span></p>
+  <p>Shares: <span th:text="${news.shares}"></span></p>
+  <p>Saves: <span th:text="${news.saves}"></span></p>
+
+  <form action="/news/save-to-collection" method="post">
+    <input type="hidden" name="newsId" th:value="${news.newsID}" />
+    <button type="submit">Save to Collection</button>
+  </form>
+
+  <h3>Comments</h3>
+  <ul>
+    <li th:each="comment, commentIndex : ${news.commentsList}">
+      <div style="border-bottom: 1px solid black; padding-bottom: 10px;">
+        <div th:if="${comment.userID == loggedInUserId}">
+          <form action="/comment/delete" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <input type="hidden" name="commentId" th:value="${comment.commentID}" />
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+        <p>AuthorID: <span th:text="${comment.userID}"></span></p>
+        <p th:text="${comment.commentContent}"></p>
+        <p>Likes: <span th:text="${comment.likes}"></span></p>
+        <p>Dislikes: <span th:text="${comment.dislikes}"></span></p>
+        <form action="/comment/like" method="post">
+          <input type="hidden" name="commentId" th:value="${comment.commentID}" />
+          <button type="submit">Like</button>
+        </form>
+        <form action="/dislike" method="post">
+          <input type="hidden" name="commentId" th:value="${comment.commentID}" />
+          <button type="submit">Dislike</button>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>
+<br>
+<div>
+  <form action="/comment/create" method="post">
+    <input type="hidden" name="newsId" th:value="${news.newsID}" />
+    <textarea name="comment" required></textarea>
+    <button type="submit">Add Comment</button>
+  </form>
+</div>
+</body>
+</html>
